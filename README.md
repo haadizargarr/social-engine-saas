@@ -113,15 +113,45 @@ The application will now be available locally.
 
 ## 📸 Screenshots
 
-Add screenshots of:
+### Login Page
 
-* Login page
-* Dashboard
-* Social media calendar
-* AI content generator
-* Analytics dashboard
-* Connected social accounts
-* Scheduled posts
+![Login Page](screenshots/login.png)
+
+---
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+### Create Post
+
+![Create Post](screenshots/create-post.png)
+
+---
+
+### Channels
+
+![Channels](screenshots/channels.png)
+
+---
+
+### Calendar
+
+![Calendar](screenshots/calendar.png)
+
+---
+
+### Analytics Dashboard
+
+![Analytics Dashboard](screenshots/analytics.png)
+
+---
+
+### Admin Panel
+
+![Admin Panel](screenshots/admin-panel.png)
 
 ---
 
