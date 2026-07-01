@@ -1,41 +1,159 @@
-# Social Engine SaaS Prototype
+# Social Engine SaaS
 
 ## 📝 Project Overview
 
-A production-grade, full-stack social media automation engine built as a 3rd-year Computer Science portfolio prototype at Taylor's University. It manages distributed social channel buffers through a decoupled React SPA and Python REST API, using asynchronous task queues to handle scheduled payload dispatching.
+Social Engine SaaS is a full-stack social media management prototype that helps users manage multiple social media accounts from a single dashboard. The application allows users to schedule posts, generate AI-assisted content, view analytics, and manage connected social media platforms through a modern web interface.
 
-**Current Status:** Functional Prototype
+This project was developed as a third-year Computer Science portfolio project at Taylor's University to strengthen my skills in full-stack web development, REST API development, authentication, database management, asynchronous task processing, and modern frontend development.
 
-## 🛠️ Tech Stack 
+**Project Status:** Functional Prototype
 
-- **Frontend:** React, Vite, Tailwind CSS, Recharts
-- **Backend:** Python, FastAPI, SQLAlchemy, bcrypt, JWT
-- **DevOps & DB:** Docker Compose, PostgreSQL, Redis, Celery
+---
 
-## ✨ Core Features
+## 🚀 Features
 
-- **User Authentication:** Secure JWT-based login with Role-Based Access Control (RBAC).
-- **OAuth Channels:** Link multiple social platforms (Twitter, LinkedIn) via simulated OAuth.
-- **Async Payload Dispatch:** Background Celery worker (`worker.py`) handles scheduled posts seamlessly.
-- **AI Content Mock:** Generates captions, hashtags, and threads via simulated AI endpoints.
-- **Analytics & Media:** Mock engagement tracking and S3-based media uploads (with local fallback).
+* Secure user authentication using JWT
+* Role-Based Access Control (RBAC)
+* Connect multiple social media accounts through simulated OAuth
+* Schedule and manage social media posts
+* AI-powered content generation (captions, hashtags, and post ideas)
+* Background task processing using Celery
+* Analytics dashboard with engagement metrics
+* Media upload support with local storage fallback
+* Responsive user interface built with React and Tailwind CSS
 
-## 💻 How to Run the Project
+---
 
-```bash
-# 1. Start Databases
-docker-compose up -d
+## 🛠️ Tech Stack
 
-# 2. Start Backend API
-cd backend && pip install -r requirements.txt && uvicorn main:app --reload
+### Frontend
 
-# 3. Start Background Worker (New Terminal)
-cd backend && celery -A worker celery_app worker --loglevel=info
+* React
+* Vite
+* Tailwind CSS
+* Recharts
 
-# 4. Start Frontend (New Terminal)
-cd frontend && npm install && npm run dev
+### Backend
+
+* Python
+* FastAPI
+* SQLAlchemy
+* JWT Authentication
+* bcrypt
+
+### Database & Infrastructure
+
+* PostgreSQL
+* Redis
+* Docker Compose
+* Celery
+
+---
+
+## 📂 Project Structure
+
+```text
+Social-Engine-SaaS/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── backend/
+│   ├── main.py
+│   ├── worker.py
+│   ├── requirements.txt
+│   └── ...
+│
+├── docker-compose.yml
+└── README.md
 ```
 
-## 📸 Visuals & Interface
+---
 
-*(Insert screenshots of the dashboard UI, calendar views, analytics graphs, and running terminal logs here)*
+## 💻 Getting Started
+
+### 1. Start the databases
+
+```bash
+docker-compose up -d
+```
+
+### 2. Start the backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+### 3. Start the Celery worker
+
+Open a new terminal and run:
+
+```bash
+cd backend
+celery -A worker celery_app worker --loglevel=info
+```
+
+### 4. Start the frontend
+
+Open another terminal and run:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The application will now be available locally.
+
+---
+
+## 📸 Screenshots
+
+Add screenshots of:
+
+* Login page
+* Dashboard
+* Social media calendar
+* AI content generator
+* Analytics dashboard
+* Connected social accounts
+* Scheduled posts
+
+---
+
+## 🎯 Learning Outcomes
+
+Through this project, I gained experience with:
+
+* Building full-stack web applications
+* Developing REST APIs using FastAPI
+* JWT authentication and user authorization
+* Working with PostgreSQL databases
+* Background task processing using Celery and Redis
+* Containerization using Docker Compose
+* Building responsive React applications
+* Integrating frontend and backend systems
+
+---
+
+## 🔮 Future Improvements
+
+* Support for additional social media platforms
+* Real AI integration using large language models
+* Team collaboration features
+* Advanced analytics and reporting
+* Push notifications
+* Cloud deployment
+* Multi-language support
+
+---
+
+## 👨‍💻 Author
+
+**Haadi Zargar**
+Third-Year Computer Science Student
+Taylor's University
