@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Engine — Core Enterprise Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background-color: #060913;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
+        }
+
+        .glass-card {
+            background: rgba(11, 17, 34, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .glow-blue:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FFF 30%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="text-slate-200 min-h-screen flex flex-col">
+
+    <nav class="glass-card sticky top-0 z-50 px-8 py-4 flex justify-between items-center border-b border-slate-900/60">
+        <div class="flex items-center space-x-3">
+            <div
+                class="h-10 w-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-blue-500/20">
+                Ω</div>
+            <span class="text-xl font-extrabold tracking-tight gradient-text">SocialEngine<span
+                    class="text-blue-500">.</span></span>
+        </div>
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+                <div class="h-2 w-2 rounded-full bg-slate-600" id="status-indicator"></div>
+                <span id="user-display" class="text-sm text-slate-400 font-semibold">Offline Core Console</span>
+            </div>
+            <button onclick="logout()"
+                class="px-4 py-2 text-xs font-bold bg-slate-900/80 hover:bg-red-950/40 hover:text-red-400 border border-slate-800 rounded-xl transition-all">Disconnect</button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl w-full mx-auto p-6 lg:p-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <div class="lg:col-span-4 space-y-6">
+            <div class="glass-card p-6 rounded-2xl shadow-xl">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">⚡ Access Console</h2>
+                <div class="space-y-4">
+                    <input id="auth-email" type="email" placeholder="Identity Email"
+                        class="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 transition-all">
+                    <input id="auth-password" type="password" placeholder="Access Key"
+                        class="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 transition-all">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="handleAuth('login')"
+                            class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all">Authorize</button>
+                        <button onclick="handleAuth('signup')"
+                            class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider rounded-xl border border-slate-800 transition-all">Register</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl shadow-xl">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">🔌 Link Automation Node</h3>
+                <div class="space-y-4">
+                    <select id="channel-platform"
+                        class="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm text-slate-300 focus:outline-none focus:border-blue-500">
+                        <option value="Instagram">Instagram Page</option>
+                        <option value="Pinterest">Pinterest Board</option>
+                    </select>
+                    <input id="channel-name" type="text" placeholder="Title (e.g. One Piece Vault)"
+                        class="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                    <input id="channel-handle" type="text" placeholder="Handle (without @)"
+                        class="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                    <button onclick="createNewChannel()"
+                        class="w-full py-3 bg-slate-900 hover:bg-blue-600 text-slate-300 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl border border-slate-800 hover:border-blue-500 transition-all">Inject
+                        Node</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-8 space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="glass-card p-5 rounded-2xl">
+                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-400">Database
+                        Engine</span>
+                    <span class="text-sm font-bold text-emerald-400 mt-1 flex items-center space-x-2">
+                        <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>SQLite Worker + Daemon Live</span>
+                    </span>
+                </div>
+                <div class="glass-card p-5 rounded-2xl">
+                    <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-400">Total Connected
+                        Channels</span>
+                    <span id="channel-count" class="text-xl font-extrabold text-white mt-0.5">0 Active Nodes</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl shadow-2xl min-h-[300px]">
+                <h3 class="text-lg font-bold text-white tracking-tight">Active Connected Channels</h3>
+                <p class="text-xs text-slate-400 mt-1 mb-6">Select a channel node to construct and manage content
+                    scheduling matrices.</p>
+                <div id="channels-container" class="space-y-3">
+                    <div
+                        class="text-center py-12 text-sm text-slate-600 border border-dashed border-slate-800 rounded-2xl">
+                        Console offline. Authenticate to mount active database nodes.
+                    </div>
+                </div>
+            </div>
+
+            <div id="queue-workspace" class="glass-card p-6 rounded-2xl shadow-2xl hidden border border-blue-500/20">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 id="active-queue-title" class="text-lg font-bold text-blue-400">Channel Content Queue</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Inject and view pending content schedule models inside
+                            SQLite.</p>
+                    </div>
+                    <button onclick="closeQueueWorkspace()"
+                        class="text-xs font-bold text-slate-400 hover:text-white px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg">Close
+                        Queue</button>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-950/40 p-4 border border-slate-900 rounded-xl mb-6">
+                    <input id="post-title" type="text" placeholder="Post Title (e.g. Luffy Gear 5)"
+                        class="px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-white focus:outline-none">
+                    <input id="post-caption" type="text" placeholder="Caption/Tags (#onepiece)"
+                        class="px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-white focus:outline-none">
+                    <button onclick="scheduleNewPost()"
+                        class="py-2 bg-blue-600 hover:bg-blue-500 font-bold text-xs uppercase tracking-wider text-white rounded-lg transition-all">Schedule
+                        Post</button>
+                </div>
+
+                <div id="posts-container" class="space-y-2"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let sessionToken = localStorage.getItem("token") || "";
+        let selectedChannelId = null;
+
+        async function handleAuth(type) {
+            const email = document.getElementById("auth-email").value;
+            const password = document.getElementById("auth-password").value;
+            if (!email || !password) return alert("All inputs required.");
+
+            let url = type === "signup" ? "/users" : "/login";
+            let bodyData = type === "signup" ? JSON.stringify({ email, password }) : new URLSearchParams({ username: email, password });
+            let headers = type === "signup" ? { "Content-Type": "application/json" } : {};
+
+            try {
+                let res = await fetch(url, { method: "POST", headers, body: bodyData });
+                let data = await res.json();
+                if (!res.ok) throw new Error(data.detail || "Execution failure.");
+
+                if (type === "login") {
+                    localStorage.setItem("token", data.access_token);
+                    sessionToken = data.access_token;
+                    alert("Authenticated with Bcrypt encryption core!");
+                    loadDashboard();
+                } else {
+                    alert("Identity registered inside SQLite framework successfully.");
+                }
+            } catch (err) { alert(err.message); }
+        }
+
+        async function createNewChannel() {
+            const platform = document.getElementById("channel-platform").value;
+            const page_name = document.getElementById("channel-name").value;
+            const handle = document.getElementById("channel-handle").value;
+            try {
+                let res = await fetch("/channels", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${sessionToken}` },
+                    body: JSON.stringify({ platform, page_name, handle })
+                });
+                if (!res.ok) throw new Error("Fault compiling channel configuration.");
+                document.getElementById("channel-name").value = "";
+                document.getElementById("channel-handle").value = "";
+                loadDashboard();
+            } catch (err) { alert(err.message); }
+        }
+
+        async function loadDashboard() {
+            if (!sessionToken) return;
+            try {
+                let userRes = await fetch("/users/me", { headers: { "Authorization": `Bearer ${sessionToken}` } });
+                let userData = await userRes.json();
+                if (userRes.ok) {
+                    document.getElementById("user-display").innerText = userData.email;
+                    document.getElementById("status-indicator").className = "h-2 w-2 rounded-full bg-blue-500 animate-pulse";
+                }
+                let channelRes = await fetch("/channels", { headers: { "Authorization": `Bearer ${sessionToken}` } });
+                let channels = await channelRes.json();
+                let container = document.getElementById("channels-container");
+                if (channels.length === 0) {
+                    container.innerHTML = `<div class="text-center py-8 text-xs text-slate-500">No channels running. Add a profile node to start.</div>`;
+                    return;
+                }
+                document.getElementById("channel-count").innerText = `${channels.length} Active Nodes`;
+                container.innerHTML = channels.map(c => `
+                    <div class="glow-blue p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl flex justify-between items-center transition-all">
+                        <div>
+                            <span class="text-sm font-bold text-white">${c.page_name}</span>
+                            <span class="block text-xs text-slate-500">@${c.handle} (${c.platform})</span>
+                        </div>
+                        <button onclick="openQueueWorkspace(${c.id}, '${c.page_name}')" class="px-3 py-1.5 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/20 rounded-lg text-xs font-bold transition-all">Manage Queue</button>
+                    </div>
+                `).join('');
+            } catch (err) { console.error(err); }
+        }
+
+        async function openQueueWorkspace(channelId, name) {
+            selectedChannelId = channelId;
+            document.getElementById("active-queue-title").innerText = `Queue Vector — ${name}`;
+            document.getElementById("queue-workspace").classList.remove("hidden");
+            loadQueuePosts();
+        }
+
+        async function loadQueuePosts() {
+            if (!selectedChannelId) return;
+            try {
+                let res = await fetch(`/channels/${selectedChannelId}/posts`, { headers: { "Authorization": `Bearer ${sessionToken}` } });
+                let posts = await res.json();
+                let container = document.getElementById("posts-container");
+                if (posts.length === 0) {
+                    container.innerHTML = `<div class="text-center py-6 text-xs text-slate-600 border border-dashed border-slate-900 rounded-xl">Queue buffer empty. Schedule a content node above.</div>`;
+                    return;
+                }
+                container.innerHTML = posts.map(p => `
+                    <div class="p-3 bg-slate-900/60 border border-slate-800 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-bold text-slate-200">${p.title}</span>
+                            <p class="text-[11px] text-slate-400 mt-0.5">${p.caption || 'No caption'}</p>
+                        </div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider ${p.is_published ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/20' : 'text-amber-400 bg-amber-400/10 border-amber-500/20'} px-2 py-0.5 rounded border">
+                            ${p.is_published ? '⚡ Dispatched' : '⏳ Pending Queue'}
+                        </span>
+                    </div>
+                `).join('');
+            } catch (err) { console.error(err); }
+        }
+
+        async function scheduleNewPost() {
+            const title = document.getElementById("post-title").value;
+            const caption = document.getElementById("post-caption").value;
+            if (!title) return alert("Post title parameter required.");
+            try {
+                let res = await fetch(`/channels/${selectedChannelId}/posts`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${sessionToken}` },
+                    body: JSON.stringify({ title, caption })
+                });
+                if (!res.ok) throw new Error("Queue creation failed.");
+                document.getElementById("post-title").value = "";
+                document.getElementById("post-caption").value = "";
+                loadQueuePosts();
+            } catch (err) { alert(err.message); }
+        }
+
+        function closeQueueWorkspace() { document.getElementById("queue-workspace").classList.add("hidden"); }
+        function logout() { localStorage.clear(); window.location.reload(); }
+        if (sessionToken) loadDashboard();
+    </script>
+</body>
+
+</html>

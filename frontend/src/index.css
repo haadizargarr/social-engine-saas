@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-main: #F9FAFB;
+  --bg-card: #FFFFFF;
+  --bg-hover: #F3F4F6;
+  --bg-active: #EFF6FF;
+  
+  --text-main: #111827;
+  --text-muted: #6B7280;
+  
+  --border-color: #E5E7EB;
+  --border-hover: #D1D5DB;
+  --border-focus: #3B82F6;
+  
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-subtle: #EFF6FF;
+  
+  --success: #10B981;
+  --error: #EF4444;
+  --warning: #F59E0B;
+  
+  --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-main);
+  color: var(--text-main);
+  height: 100%;
+}
+
+#root { height: 100%; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--border-hover);
+}
+
+.card-active {
+  background: var(--bg-active);
+  border: 1px solid var(--border-focus);
+  border-radius: 12px;
+}
+
+/* ─── SIDEBAR & NAVBAR ─── */
+.sidebar-glass {
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+}
+
+.navbar-glass {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ─── INPUTS ─── */
+.input-premium {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.input-premium::placeholder { color: var(--text-muted); }
+
+.input-premium:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.input-premium:disabled {
+  background: var(--bg-main);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  padding: 10px 18px;
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.btn-ghost {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-ghost:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+.btn-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-danger {
+  color: var(--error);
+  border-color: #FECACA;
+  background: #FEF2F2;
+}
+.btn-danger:hover {
+  background: #FEE2E2 !important;
+  border-color: #FCA5A5 !important;
+}
+
+/* ─── SIDEBAR NAV ITEM ─── */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.nav-item.active {
+  background: var(--bg-active);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ─── STATUS BADGES ─── */
+.badge-pending {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  border-radius: 6px;
+  color: #D97706;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-dispatched {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px;
+  background: #D1FAE5;
+  border: 1px solid #A7F3D0;
+  border-radius: 6px;
+  color: #059669;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ─── PLATFORM COLORS ─── */
+.platform-ig { background: linear-gradient(135deg, #f97316, #ec4899); color: white; }
+.platform-pt { background: #DC2626; color: white; }
+.platform-tw { background: #0F1419; color: white; }
+.platform-tt { background: #000000; color: white; }
+.platform-li { background: #0A66C2; color: white; }
+.platform-default { background: var(--text-muted); color: white; }
+
+/* ─── METRIC CARD ─── */
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* ─── CHANNEL CARD ─── */
+.channel-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.channel-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.channel-card.selected {
+  border: 2px solid var(--accent);
+  background: var(--bg-active);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+/* ─── QUEUE ROW ─── */
+.queue-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.queue-row:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+}
+
+/* ─── LOGO ICON ─── */
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; color: white;
+  flex-shrink: 0;
+}
+
+/* ─── PROGRESS BAR ─── */
+.progress-bar {
+  height: 4px;
+  background: var(--border-color);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+/* ─── SELECT PREMIUM ─── */
+select.input-premium {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+select.input-premium option {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+/* ─── ANIMATIONS ─── */
+.animate-spin-slow { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── TOAST ─── */
+.toast-in { animation: toastIn 0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+.toast-out { animation: toastOut 0.2s ease-in forwards; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(100%) scale(0.9); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(110%) scale(0.9); }
+}
