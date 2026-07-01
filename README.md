@@ -115,13 +115,13 @@ The application will now be available locally.
 
 ### Login Page
 
-![Login Page](screenshots/login.png?v=2)
+![Login Page](screenshots/login.png?v=3)
 
 ---
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard.png?v=2)
+![Dashboard](screenshots/dashboard.png?v=3)
 
 ---
 
