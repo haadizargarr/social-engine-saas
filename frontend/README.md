@@ -1,16 +1,41 @@
-# React + Vite
+# Social Engine SaaS Prototype
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## 📝 Project Overview
 
-Currently, two official plugins are available:
+A production-grade, full-stack social media automation engine built as a 3rd-year Computer Science portfolio prototype at Taylor's University. It manages distributed social channel buffers through a decoupled React SPA and Python REST API, using asynchronous task queues to handle scheduled payload dispatching.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Current Status:** Functional Prototype
 
-## React Compiler
+## 🛠️ Tech Stack 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React, Vite, Tailwind CSS, Recharts
+- **Backend:** Python, FastAPI, SQLAlchemy, bcrypt, JWT
+- **DevOps & DB:** Docker Compose, PostgreSQL, Redis, Celery
 
-## Expanding the Oxlint configuration
+## ✨ Core Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **User Authentication:** Secure JWT-based login with Role-Based Access Control (RBAC).
+- **OAuth Channels:** Link multiple social platforms (Twitter, LinkedIn) via simulated OAuth.
+- **Async Payload Dispatch:** Background Celery worker (`worker.py`) handles scheduled posts seamlessly.
+- **AI Content Mock:** Generates captions, hashtags, and threads via simulated AI endpoints.
+- **Analytics & Media:** Mock engagement tracking and S3-based media uploads (with local fallback).
+
+## 💻 How to Run the Project
+
+```bash
+# 1. Start Databases
+docker-compose up -d
+
+# 2. Start Backend API
+cd backend && pip install -r requirements.txt && uvicorn main:app --reload
+
+# 3. Start Background Worker (New Terminal)
+cd backend && celery -A worker celery_app worker --loglevel=info
+
+# 4. Start Frontend (New Terminal)
+cd frontend && npm install && npm run dev
+```
+
+## 📸 Visuals & Interface
+
+*(Insert screenshots of the dashboard UI, calendar views, analytics graphs, and running terminal logs here)*
