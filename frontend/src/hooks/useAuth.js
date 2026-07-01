@@ -9,7 +9,10 @@ const isNetworkError = (err) =>
   err.message === 'Failed to fetch' ||
   err.message === 'Load failed' ||
   err.message.toLowerCase().includes('networkerror') ||
-  err.message.toLowerCase().includes('network request failed');
+  err.message.toLowerCase().includes('network request failed') ||
+  err.message === 'The string did not match the expected pattern.' ||
+  err.message.includes('Unexpected token') ||
+  err.message.includes('JSON');
 
 export function useAuth(addToast) {
   const [token, setToken] = useState(() => localStorage.getItem('se_token') || '');
@@ -73,7 +76,7 @@ export function useAuth(addToast) {
       if (isNetworkError(err)) {
         addToast('Cannot reach backend. Is the FastAPI server running on port 8000?', 'error');
       } else {
-        addToast(err.message, 'error');
+        addToast(isNetworkError(err) ? 'Backend is offline or unreachable.' : err.message, 'error');
       }
       setIsLive(false);
     } finally {
@@ -130,7 +133,7 @@ export function useAuth(addToast) {
       if (isNetworkError(err)) {
         addToast('Cannot reach the backend server on port 8000.', 'error');
       } else {
-        addToast(err.message, 'error');
+        addToast(isNetworkError(err) ? 'Backend is offline or unreachable.' : err.message, 'error');
       }
     }
   };
@@ -225,7 +228,7 @@ export function useAuth(addToast) {
       const data = await res.json();
       window.location.href = data.redirect_url;
     } catch (err) {
-      addToast(err.message, 'error');
+      addToast(isNetworkError(err) ? 'Backend is offline.' : err.message, 'error');
     }
   };
 
@@ -241,7 +244,7 @@ export function useAuth(addToast) {
       await loadAllPosts();
       return true;
     } catch (err) {
-      addToast(err.message, 'error');
+      addToast(isNetworkError(err) ? 'Backend is offline.' : err.message, 'error');
       return false;
     }
   };
@@ -259,7 +262,7 @@ export function useAuth(addToast) {
       const data = await res.json();
       return data.media_url;
     } catch (err) {
-      addToast(err.message, 'error');
+      addToast(isNetworkError(err) ? 'Backend is offline or unreachable.' : err.message, 'error');
       return null;
     }
   };
@@ -275,7 +278,7 @@ export function useAuth(addToast) {
       const data = await res.json();
       return data.generated_text;
     } catch (err) {
-      addToast(err.message, 'error');
+      addToast(isNetworkError(err) ? 'Backend is offline or unreachable.' : err.message, 'error');
       return null;
     }
   };
@@ -289,12 +292,16 @@ export function useAuth(addToast) {
       });
       const data = await res.json();
       if (!res.ok) {
-        addToast(data.detail || 'Failed to request reset.', 'error');
+        let msg = data.detail || 'Failed to request reset.';
+        if (Array.isArray(data.detail)) {
+          msg = data.detail.map(e => e.msg || e.message || JSON.stringify(e)).join('. ');
+        }
+        addToast(msg, 'error');
         return null;
       }
       return data.mock_token;
     } catch (err) {
-      addToast(err.message, 'error');
+      addToast(isNetworkError(err) ? 'Cannot reach the backend server on port 8000.' : err.message, 'error');
       return null;
     }
   };
@@ -308,13 +315,17 @@ export function useAuth(addToast) {
       });
       if (!res.ok) {
         const data = await res.json();
-        addToast(data.detail || 'Failed to reset password.', 'error');
+        let msg = data.detail || 'Failed to reset password.';
+        if (Array.isArray(data.detail)) {
+          msg = data.detail.map(e => e.msg || e.message || JSON.stringify(e)).join('. ');
+        }
+        addToast(msg, 'error');
         return false;
       }
       addToast('Password successfully reset! You can now sign in.', 'success');
       return true;
     } catch (err) {
-      addToast(err.message, 'error');
+      addToast(isNetworkError(err) ? 'Cannot reach the backend server on port 8000.' : err.message, 'error');
       return false;
     }
   };
